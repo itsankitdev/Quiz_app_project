@@ -5,44 +5,44 @@ let timeLeft = 2 * 60; // total time in seconds
 let timerId;
 
 function startTimer() {
-    const timer = document.getElementById("timer");
+  const timer = document.getElementById("timer");
 
-    timerId = setInterval(() => {
-        // Calculate minutes and seconds
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
+  timerId = setInterval(() => {
+    // Calculate minutes and seconds
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
 
-        // Format as MM:SS
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+    // Format as MM:SS
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        // Display timer
-        timer.textContent = `Time Left: ${minutes}:${seconds}`;
+    // Display timer
+    timer.textContent = `Time Left: ${minutes}:${seconds}`;
 
-        // Gradually change color if time < 30s
-        if (timeLeft <= 30) {
-            const red = 255;
-            const green = Math.floor((timeLeft / 30) * 255);
-            timer.style.color = `rgb(${red}, ${green}, 0)`;
-        }
+    // Gradually change color if time < 30s
+    if (timeLeft <= 30) {
+      const red = 255;
+      const green = Math.floor((timeLeft / 30) * 255);
+      timer.style.color = `rgb(${red}, ${green}, 0)`;
+    }
 
-        // Check if time is up
-        if (timeLeft <= 0) {
-            clearInterval(timerId);
+    // Check if time is up
+    if (timeLeft <= 0) {
+      clearInterval(timerId);
 
-            // Auto-submit current answer or mark unanswered
-            const selected = getSelectedAnswer();
-            userAnswers[currentIndex] = selected !== null ? selected : -1;
+      // Auto-submit current answer or mark unanswered
+      const selected = getSelectedAnswer();
+      userAnswers[currentIndex] = selected !== null ? selected : -1;
 
-            // Disable buttons
-            document.querySelector(".next-btn").disabled = true;
-            document.getElementById("submit-btn").disabled = true;
+      // Disable buttons
+      document.querySelector(".next-btn").disabled = true;
+      document.getElementById("submit-btn").disabled = true;
 
-            showResult();
-        }
+      showResult();
+    }
 
-        timeLeft--; // decrement after rendering
-    }, 1000);
+    timeLeft--; // decrement after rendering
+  }, 1000);
 }
 
 
@@ -288,26 +288,26 @@ const questionBank = [
  SHUFFLING
 **************************/
 function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
 
 function shuffleOptions(question) {
-    const optionsWithFlag = question.options.map((opt, i) => ({
-        text: opt,
-        correct: i === question.correct
-    }));
+  const optionsWithFlag = question.options.map((opt, i) => ({
+    text: opt,
+    correct: i === question.correct
+  }));
 
-    shuffleArray(optionsWithFlag);
+  shuffleArray(optionsWithFlag);
 
-    question.options = optionsWithFlag.map(o => o.text);
-    question.correct = optionsWithFlag.findIndex(o => o.correct);
+  question.options = optionsWithFlag.map(o => o.text);
+  question.correct = optionsWithFlag.findIndex(o => o.correct);
 
-    return question;
+  return question;
 }
 
 
@@ -321,14 +321,14 @@ let currentIndex = 0;
 let userAnswers = [];
 
 function startQuiz() {
-    const shuffled = shuffleArray([...questionBank]);
+  const shuffled = shuffleArray([...questionBank]);
 
-    quizQuestions = shuffled
-        .slice(0, TOTAL_QUESTIONS)
-        .map(q => shuffleOptions({ ...q }));
+  quizQuestions = shuffled
+    .slice(0, TOTAL_QUESTIONS)
+    .map(q => shuffleOptions({ ...q }));
 
-    loadQuestion();
-    startTimer();
+  loadQuestion();
+  startTimer();
 }
 
 
@@ -336,56 +336,60 @@ function startQuiz() {
  LOAD QUESTION
 **************************/
 function loadQuestion() {
-    const qText = document.getElementById("questionText");
-    const optionsBox = document.getElementById("optionsContainer");
+  const qText = document.getElementById("questionText");
+  const optionsBox = document.getElementById("optionsContainer");
 
-    qText.textContent = quizQuestions[currentIndex].question;
-    optionsBox.innerHTML = "";
+  qText.textContent = quizQuestions[currentIndex].question;
+  optionsBox.innerHTML = "";
 
-    quizQuestions[currentIndex].options.forEach((opt, i) => {
-        optionsBox.innerHTML += `
+  quizQuestions[currentIndex].options.forEach((opt, i) => {
+    const checked =
+      userAnswers[currentIndex] === i ? "checked" : "";
+
+    optionsBox.innerHTML += `
             <label class="option">
-                <input type="radio" name="quiz-option" value="${i}">
+                <input type="radio" name="quiz-option" value="${i}" ${checked}>
                 <span>${opt}</span>
             </label>
         `;
-    });
+  });
 
-    document.getElementById("questionNumber").textContent =
-        `Q${currentIndex + 1}/${quizQuestions.length}`;
+  document.getElementById("questionNumber").textContent =
+    `Q${currentIndex + 1}/${quizQuestions.length}`;
 }
+
 
 
 /*************************
  ANSWERS
 **************************/
 function getSelectedAnswer() {
-    const options = document.getElementsByName("quiz-option");
-    for (let opt of options) {
-        if (opt.checked) return Number(opt.value);
-    }
-    return null;
+  const options = document.getElementsByName("quiz-option");
+  for (let opt of options) {
+    if (opt.checked) return Number(opt.value);
+  }
+  return null;
 }
 
 function submitAnswer() {
-    const selected = getSelectedAnswer();
-    if (selected === null) {
-        alert("Please select an option");
-        return;
-    }
+  const selected = getSelectedAnswer();
+  if (selected === null) {
+    alert("Please select an option");
+    return;
+  }
 
-    userAnswers[currentIndex] = selected;
-    nextQuestion();
+  userAnswers[currentIndex] = selected;
+  nextQuestion();
 }
 
 function nextQuestion() {
-    if (currentIndex < quizQuestions.length - 1) {
-        currentIndex++;
-        loadQuestion();
-    } else {
-        clearInterval(timerId);
-        showResult();
-    }
+  if (currentIndex < quizQuestions.length - 1) {
+    currentIndex++;
+    loadQuestion();
+  } else {
+    clearInterval(timerId);
+    showResult();
+  }
 }
 
 
@@ -393,20 +397,20 @@ function nextQuestion() {
  RESULT
 **************************/
 function showResult() {
-    clearInterval(timerId);
-    document.querySelector(".quiz-container").style.display = "none";
+  clearInterval(timerId);
+  document.querySelector(".quiz-container").style.display = "none";
 
-    let score = 0;
-    quizQuestions.forEach((q, i) => {
-        if (userAnswers[i] === q.correct) score++;
-    });
+  let score = 0;
+  quizQuestions.forEach((q, i) => {
+    if (userAnswers[i] === q.correct) score++;
+  });
 
-    const resultBox = document.querySelector(".result");
-    const name = localStorage.getItem("username");
-    const userClass = localStorage.getItem("userClass");
-    const roll = localStorage.getItem("roll");
+  const resultBox = document.querySelector(".result");
+  const name = localStorage.getItem("username");
+  const userClass = localStorage.getItem("userClass");
+  const roll = localStorage.getItem("roll");
 
-    resultBox.innerHTML = `
+  resultBox.innerHTML = `
         <div class="result-box">
             <h2>Quiz Completed 🎉</h2>
 
@@ -433,9 +437,9 @@ function showResult() {
         </div>
     `;
 
-    resultBox.classList.add("show");
+  resultBox.classList.add("show");
 
-    localStorage.clear();
+  localStorage.clear();
 }
 
 
@@ -443,12 +447,12 @@ function showResult() {
  RESTART & PRINT
 **************************/
 function restartQuiz() {
-    clearInterval(timerId);
-    window.location.href = "userdetail.html";
+  clearInterval(timerId);
+  window.location.href = "userdetail.html";
 }
 
 function printResult() {
-    window.print();
+  window.print();
 }
 
 
