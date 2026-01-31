@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS Classes Quiz - Question</title>
+    <link rel="stylesheet" href="CSS/question.css">
+</head>
+<body>
+    <div class="quiz-container" >
+        <!-- Quiz Header -->
+        <div class="quiz-header">
+            <span class="question-number" id="questionNumber">Q1/10</span>
+            <span class="timer" id="timer">Timer: 2:00
+
+            </span>
+        </div>
+
+       
+        <div class="question">
+            <p class="question-text" id="questionText"></p>
+        </div>
+
+        
+        <div class="options" id="optionsContainer">
+            <label class="option">
+                <input type="radio" name="quiz-option">
+                <span id="opt1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="quiz-option">
+                <span id="opt2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="quiz-option">
+                <span  id="opt3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="quiz-option">
+                <span id="opt4"></span>
+            </label>
+        </div>
+
+        <!-- Buttons -->
+        <div class="quiz-actions">
+            <button class="btn next-btn" onclick="nextQuestion()">NEXT</button>
+            <button class="btn submit-btn" id="submit-btn" onclick="submitAnswer()">SUBMIT</button>
+        </div>
+    </div>
+
+    <div class="result"></div>
+
+<script src="JS/script.js">
+</script>
+</body>
+</html>

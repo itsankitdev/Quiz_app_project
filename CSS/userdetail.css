@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+.quiz-container {
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.quiz-header h1 {
+    color: #2575fc;
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+
+.user-form .form-title {
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #2575fc;
+    box-shadow: 0 0 5px rgba(37,117,252,0.5);
+}
+
+.form-group-inline {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.form-group-inline .form-group {
+    flex: 1;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.start-btn {
+    background: #2575fc;
+    color: #fff;
+}
+
+.start-btn:hover {
+    background: #1a5bdc;
+}
+
+.clear-btn {
+    background: #f2f2f2;
+    color: #333;
+}
+
+.clear-btn:hover {
+    background: #e0e0e0;
+}
+
+
+

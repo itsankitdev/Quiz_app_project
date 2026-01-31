@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS Classes Quiz</title>
+    <link rel="stylesheet" href="CSS/userdetail.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <!-- Logo / Title -->
+        <div class="quiz-header">
+            <h1>RS Classes Quiz</h1>
+        </div>
+
+        <!-- User Details Form -->
+        <form class="user-form">
+            <p class="form-title">Enter your details to start:</p>
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group-inline">
+                <div class="form-group">
+                    <label for="userClass">Class:</label>
+                    <input type="text" id="userClass" placeholder="Class" required>
+                </div>
+                <div class="form-group">
+                    <label for="roll">Roll No:</label>
+                    <input type="text" id="roll" placeholder="Roll No" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age (optional):</label>
+                <input type="number" id="age" placeholder="Age">
+            </div>
+
+            <div class="form-group">
+                <label for="topic">Choose Topic:</label>
+                <select id="topic">
+                    <option>General Knowledge</option>
+                    <option>Mathematics</option>
+                    <option>Science</option>
+                    <option>History</option>
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-actions">
+                <button type="submit" class="btn start-btn">START QUIZ ▶</button>
+                <button type="reset" class="btn clear-btn">CLEAR</button>
+               
+            </div>
+        </form>
+    </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".user-form");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const userClass = document.getElementById("userClass").value.trim();
+        const roll = document.getElementById("roll").value.trim();
+
+        if (!name || !userClass || !roll) {
+            alert("Please fill all required fields");
+            return;
+        }
+
+        localStorage.setItem("username", name);
+        localStorage.setItem("userClass", userClass);
+        localStorage.setItem("roll", roll);
+
+        window.location.href = "question.html";
+    });
+});
+
+    </script>
+</body>
+</html>
